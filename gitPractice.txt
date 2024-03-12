@@ -1,1 +1,2 @@
-1.  This is commit one.
+This is commit one.
+This is commit two.
