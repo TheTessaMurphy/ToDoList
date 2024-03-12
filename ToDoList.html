@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>To Do List</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
-    <link rel="stylesheet" href="toDoStyles.css">
-    <script>
-        
-    </script>
-
+        <title>To Do List</title>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="toDoStyles.css">
     </head>
     <body onload="Main()">
         <div id = "myListDiv">
             <h1>My ToDo List</h1>
             <form id="myList">
                 <input type="text" id="myTask" style="width:350px"> 
-                <input type="button" id="myButton" onclick="getTask()" value="To Do">
+                <input type="button" id="myButton" onclick="getInput()" value="To Do">
                 <input type="button" id="Clear" onclick="clearList()" value="Clear Checked">
                 <input type ="button" id="mkBold" onclick="makeBold()" value = "B">
-                <fieldset id="myFieldset" onclick="fieldClicked()" ></fieldset>
+                <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
                 <p></p>
                 
             </form>  
         </div>    
     </body>
-    
 </html>
 
 <script>
@@ -48,77 +43,81 @@ function Main() {
 
     var tasks = JSON.parse(localStorage.getItem("tasks"));
     var checks = JSON.parse(localStorage.getItem("checks"));    
+    
     //Call loadList to create list on page
     loadList(tasks, checks);   
     
 }
 
 function loadList(tasks, checks) {
-         //Get arrays and create a loop to call make list to create each checkbox
-         //Then call add checks to check or uncheck boxes.
-        
-            if (tasks.length != 0){
-            tasks.forEach(makeList);
-        }
-         
-        addChecks();
-        
+//Get arrays and create a loop to call make list to create each checkbox
+//Then call add checks to check or uncheck boxes.
+    if (tasks.length != 0){
+    tasks.forEach(createCheckbox);
     }
 
-function makeList(val) {
-     
-        //Create a linebreak to that checkboxes create list rather than side by side
-        var linebreak = document.createElement("br"); 
-        
-        //read each task from loadList and create the checkbox and label
-        //then append to fieldclicked so it shows up on the screen
-        //and finally, clear input box
-        var x = document.createElement("INPUT");
-        
-        x.setAttribute("type", "checkbox");
-        x.setAttribute("class", "chkbox");
-        x.addEventListener("click", fieldClicked);
-        
-        var label = document.createElement("LABEL");
-        x.value=val;
-        label.htmlFor = val;
-              
-        myFieldset.appendChild(x);
-        myFieldset.appendChild(label);
-        label.appendChild(document.createTextNode(val));
-        myFieldset.appendChild(linebreak);
-
-        //Clear the input box
-        document.getElementById('myTask').value = "";
-
-        
-    }   
-  
-function fieldClicked(e){
-    
-  // Called when a checkbox is clicked
-  // if the checkbox is checked, a class is added to the checkbox
-  // that turns the text gray. If checkbox is unchecked, the class is removed
-  // the value in the checks array is changed and saved to local storage  
-  var x = event.target;
-  const y = event.target.value;
-  var checks = JSON.parse(localStorage.getItem("checks"));
-  var labels = document.getElementsByTagName('LABEL');
-  
-        for (var i = 0; i < labels.length; i++) {
-            if (labels[i].htmlFor == y ) {
-                
-                if(x.checked){labels[i].classList.add("gray");
-                 checks[i] = 1;
-                 localStorage.setItem("checks", JSON.stringify(checks))
-                 
-                } else { labels[i].classList.remove("gray");
-                checks[i] = 0;
-                localStorage.setItem("checks", JSON.stringify(checks))
-               
-                }    
-            }
+//runs through when page loads or reloads and adds checks.  
+var getchecks = JSON.parse(localStorage.getItem("checks"));
+var x = document.querySelectorAll("input[type='checkbox']");
+    for (var i = 0; i < getchecks.length; i++){
+        if (getchecks[i] == 1){
+            x[i].click();
         } 
+    }     
+}
+
+function createCheckbox(val) {
+     
+//Create a linebreak to that checkboxes create list rather than side by side
+    var linebreak = document.createElement("br"); 
+
+//read each task from loadList and create the checkbox and label
+//then append to boxChecked so it shows up on the screen
+//and finally, clear input box
+    var x = document.createElement("INPUT");
+    
+    x.setAttribute("type", "checkbox");
+    x.setAttribute("class", "chkbox");
+    x.addEventListener("click", boxChecked);
+    
+    var label = document.createElement("LABEL");
+    x.value=val;
+    label.htmlFor = val;
+            
+    myFieldset.appendChild(x);
+    myFieldset.appendChild(label);
+    label.appendChild(document.createTextNode(val));
+    myFieldset.appendChild(linebreak);
+
+    //Clear the input box
+    document.getElementById('myTask').value = "";
+}   
+  
+// Called when a checkbox is clicked
+// if the checkbox is checked, a class is added to the checkbox
+// that turns the text gray. If checkbox is unchecked, the class is removed
+// the value in the checks array is changed and saved to local storage  
+function boxChecked(e){
+
+    var x = event.target;
+    const y = event.target.value;
+    var checks = JSON.parse(localStorage.getItem("checks"));
+    var labels = document.getElementsByTagName('LABEL');
+  
+    for (var i = 0; i < labels.length; i++) {
+        if (labels[i].htmlFor == y ) {
+            
+            if(x.checked){labels[i].classList.add("gray");
+                checks[i] = 1;
+                localStorage.setItem("checks", JSON.stringify(checks))
+                
+            } else { labels[i].classList.remove("gray");
+            checks[i] = 0;
+            localStorage.setItem("checks", JSON.stringify(checks))
+            
+            }  
+        }    
+    }       
 }
 
 function makeBold(){
@@ -127,87 +126,71 @@ function makeBold(){
     var x = event.target.value;
     var labels = document.getElementsByTagName('LABEL');
     //let con = document.getElementById("myDIV").contains(span);
- 
 
-        for (var i = 0; i < labels.length; i++) {
-            if (labels[i].htmlFor == y ) {
-                
-                if(labels[i].classList.contains("bold")){
-                    labels[i].classList.remove("bold");
-                
-                 
-                } else { labels[i].classList.contains("bold");
-                    labels[i].classList.add("bold")
-
-                }    
-            }
-        } 
-    
-    }
-
-    
-    
-    //Get value from the text box    
-    function getTask() {
-        // Get the input element by its ID 
-        var inputField = document.getElementById("myTask"); 
+    for (var i = 0; i < labels.length; i++) {
+        if (labels[i].htmlFor == y ) {
             
-        // Get the value of the input field 
-        var value = inputField.value; 
-       //call array function
-        makeArray(value);
-    }
+            if(labels[i].classList.contains("bold")){
+                labels[i].classList.remove("bold");
+            
+                
+            } else { labels[i].classList.contains("bold");
+                labels[i].classList.add("bold")
 
-function makeArray(val) {
-//Get the array from local storage and add it to.
+            }   
+        }     
+    }        
+}
 
- var tasks = JSON.parse(localStorage.getItem("tasks"));
- var checks = JSON.parse(localStorage.getItem("checks"));    
-    //get value from getTask()
-       //If the value isn't an empty string, push into Array and save to storage
-       //If the value is an empty string, alert user  
-          
-        if (val !== "") {
-            tasks.push(val); 
-            checks.push(0);
-            localStorage.setItem("tasks", JSON.stringify(tasks));
-            localStorage.setItem("checks", JSON.stringify(checks));      
-            makeList(val);
-        } else {
-            alert("Enter a Task");
-        }
-    }    
-         
+     
+function getInput() {
 
-    function addChecks(){
-    //runs through when page loads or reloads and adds checks.  
-        var getchecks = JSON.parse(localStorage.getItem("checks"));
-        var x = document.querySelectorAll("input[type='checkbox']");
-        for (var i = 0; i < getchecks.length; i++){
-            if (getchecks[i] == 1){
-                x[i].click();
-            }
-        }
-    }
-
-    function clearList() {
-    //runs through the list. If the checkbox is checked, deletes that item
-    //from the arrays then reloads the page so the updated list appears.
-    
-        var checks = JSON.parse(localStorage.getItem("checks"));
-        var tasks = JSON.parse(localStorage.getItem("tasks"));
-        var x = document.querySelectorAll("input[type='checkbox']");
-        for (var i=x.length-1; i >=0; i--){
-            if(x[i].checked){
-                tasks.splice(i, 1);
-                checks.splice(i, 1);
-            }
-        } 
+//Get value from the text box   
+// Get the input element by its ID 
+    var inputField = document.getElementById("myTask"); 
         
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        localStorage.setItem("checks", JSON.stringify(checks));
+    var value = inputField.value; 
+    createArray(value);
+}
 
-        location.reload(true);
+function createArray(val) {
+//Get the array from local storage and add to it.
+    var tasks = JSON.parse(localStorage.getItem("tasks"));
+    var checks = JSON.parse(localStorage.getItem("checks"));    
+
+//get value from getInput()
+//If the value isn't an empty string, push into Array and save to storage
+//If the value is an empty string, alert user  
+    if (val !== "") {
+        tasks.push(val); 
+        checks.push(0);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        localStorage.setItem("checks", JSON.stringify(checks));      
+        createCheckbox(val);
+    } else {
+        alert("Enter a Task");
     }
+}    
+         
+function clearList() {
+//runs through the list backwards because splice throws numbers off.
+//If the checkbox is checked, deletes that item
+//from the arrays then reloads the page so the updated list appears.
+
+    var checks = JSON.parse(localStorage.getItem("checks"));
+    var tasks = JSON.parse(localStorage.getItem("tasks"));
+    var x = document.querySelectorAll("input[type='checkbox']");
+    for (var i=x.length-1; i >=0; i--){
+        if(x[i].checked){
+            tasks.splice(i, 1);
+            checks.splice(i, 1);
+        }
+    } 
+    
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("checks", JSON.stringify(checks));
+
+    location.reload(true);
+}
     
     </script>
