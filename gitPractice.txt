@@ -1,7 +1,1 @@
-<<<<<<< HEAD
-This is commit one.
-This is commit two.
-This is commit three.
-=======
 1.  This is commit one.
->>>>>>> parent of 3eec7c9 (commit two again)
