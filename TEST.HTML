@@ -79,7 +79,7 @@ function createCheckbox(obj) {
 document.getElementById("output").innerHTML = a;       
 
 
-//Create a linebreak to that checkboxes create list rather than side by side
+//Create a linebreak so that checkboxes create list rather than side by side
 
 var linebreak = document.createElement("br"); 
 
@@ -110,24 +110,25 @@ var linebreak = document.createElement("br");
 // that turns the text gray. If checkbox is unchecked, the class is removed
 // the value in the checks array is changed and saved to local storage  
 function boxChecked(e){
-
-    var x = event.target;
-    const y = event.target.value;
-    var checks = JSON.parse(localStorage.getItem("checks"));
+    var target = event.target;
+    const value = event.target.value;
+    var arr = JSON.parse(localStorage.getItem("transformed"));
+    //var z = JSON.stringify(tasks.find(task => task.todo === inputValue));
+    var obj = JSON.stringify(arr.find(obj => obj["todo"] === value));
     var labels = document.getElementsByTagName('LABEL');
   
     for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor == y ) {
+        if (labels[i].htmlFor == value ) {
             
-            if(x.checked){labels[i].classList.add("gray");
-                checks[i] = 1;
-                localStorage.setItem("checks", JSON.stringify(checks))
+            if(target.checked){labels[i].classList.add("gray");
+                obj["checked"] == "true";
+                localStorage.setItem("transformed", JSON.stringify(transformed));
                 
             } else { labels[i].classList.remove("gray");
-            checks[i] = 0;
-            localStorage.setItem("checks", JSON.stringify(checks))
-            
+            obj["checked"] == "false"
+            localStorage.setItem("transformed", JSON.stringify(transformed));
             }  
+        
         }    
     }       
 }
