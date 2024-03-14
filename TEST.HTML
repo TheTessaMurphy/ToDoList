@@ -74,9 +74,8 @@ var x = document.querySelectorAll("input[type='checkbox']");
 
 function createCheckbox(obj) {
  
-    var a = JSON.stringify(obj["todo"]);
-    
-document.getElementById("output").innerHTML = a;       
+//var a = JSON.stringify(obj["todo"]);
+//document.getElementById("output").innerHTML = a;       
 
 
 //Create a linebreak so that checkboxes create list rather than side by side
@@ -114,18 +113,19 @@ function boxChecked(e){
     const value = event.target.value;
     var arr = JSON.parse(localStorage.getItem("transformed"));
     //var z = JSON.stringify(tasks.find(task => task.todo === inputValue));
-    var obj = JSON.stringify(arr.find(obj => obj["todo"] === value));
+    var obj = arr.find(obj => obj["todo"] === value);
     var labels = document.getElementsByTagName('LABEL');
   
     for (var i = 0; i < labels.length; i++) {
         if (labels[i].htmlFor == value ) {
             
-            if(target.checked){labels[i].classList.add("gray");
-                obj["checked"] == "true";
+            if(target.checked){
+                labels[i].classList.add("gray");
+                obj["checked"] = "true";
                 localStorage.setItem("transformed", JSON.stringify(transformed));
                 
             } else { labels[i].classList.remove("gray");
-            obj["checked"] == "false"
+            obj["checked"] = "false"
             localStorage.setItem("transformed", JSON.stringify(transformed));
             }  
         
@@ -135,24 +135,44 @@ function boxChecked(e){
 
 function makeBold(){
     
-	var y = window.getSelection();
-    var x = event.target.value;
+ 
+ var arr = JSON.parse(localStorage.getItem("transformed"));
+// var obj = arr.find(obj => obj["todo"] == selection);
+var a = JSON.stringify(arr);
+document.getElementById("output").innerHTML = a; 
+
+
+	var selection = window.getSelection();
+    var obj = arr.find(obj => obj["todo"] == selection);
     var labels = document.getElementsByTagName('LABEL');
-    //let con = document.getElementById("myDIV").contains(span);
+        
+    
+
 
     for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor == y ) {
-            
-            if(labels[i].classList.contains("bold")){
+        if (labels[i].htmlFor == selection ) {
+           
+            if     
+           /* if(labels[i].classList.contains("bold")){
+                alert(obj)
                 labels[i].classList.remove("bold");
-            
+                obj["bold"] = "false"
+                localStorage.setItem("transformed", JSON.stringify(transformed));
+                
+                alert("undo bold " + obj)
                 
             } else { labels[i].classList.contains("bold");
-                labels[i].classList.add("bold")
+                labels[i].classList.add("bold");
+                obj["bold"] = "true"
+               // var a = JSON.stringify(obj);
+                alert("make bold " + obj)
+                localStorage.setItem("transformed", JSON.stringify(transformed));
 
-            }   
+            } */  
         }     
-    }        
+    } 
+    
+    
 }
 
      
