@@ -56,25 +56,35 @@ function loadList(transformed, tasks, checks) {
 
     
 
-    //Get arrays and create a loop to call make list to create each checkbox
+//Get arrays and create a loop to call make list to create each checkbox
 //Then call add checks to check or uncheck boxes.
     if (transformed.length != 0){
     transformed.forEach(createCheckbox);
     }
 
 //runs through when page loads or reloads and adds checks.  
-var transformed = JSON.parse(localStorage.getItem("transformed"));
-var obj = transformed.find(obj => obj["todo"] === value);
-var x = document.querySelectorAll("input[type='checkbox']");
+//var transformed = JSON.parse(localStorage.getItem("transformed"));
+
+var a = JSON.stringify(transformed);
+document.getElementById("output").innerHTML = a; 
+
+var checkbox = document.querySelectorAll("input[type='checkbox']");
+var labels = document.getElementsByTagName('LABEL');
+
     for (var i = 0; i < transformed.length; i++){
-        if (obj["checked"] = "true"){
-            x[i].click();
+        let obj = transformed[i];
+        if (checkbox[i].checked == true ){
+            labels[i].classList.add("gray");
         } 
-    }     
+
+        if (obj["bold" == "true"]){
+            labels[i].classList.add("bold");   
+        }
+    }    
 }
 
 function createCheckbox(obj) {
- 
+
 //var a = JSON.stringify(obj["todo"]);
 //document.getElementById("output").innerHTML = a;       
 
@@ -94,8 +104,11 @@ var linebreak = document.createElement("br");
     
     var label = document.createElement("LABEL");
     checkboxes.value=obj["todo"];
+    checkboxes.checked=JSON.parse(obj["checked"]);
     label.htmlFor = obj["todo"];
-            
+    
+    
+
     myFieldset.appendChild(checkboxes);
     myFieldset.appendChild(label);
     label.appendChild(document.createTextNode(obj["todo"]));
@@ -116,8 +129,7 @@ function boxChecked(e){
     var obj = arr.find(obj => obj["todo"] === value);
     var indx = arr.indexOf(obj);
     
-var a = JSON.stringify(obj);
-document.getElementById("output").innerHTML = a; 
+
     
 
 var labels = document.getElementsByTagName('LABEL');
@@ -140,13 +152,11 @@ var labels = document.getElementsByTagName('LABEL');
         }    
     } 
     
-var transformed = JSON.parse(localStorage.getItem("transformed"));
-    var a = JSON.stringify(transformed);
-document.getElementById("output").innerHTML = a;    
+
 }
 
 function makeBold(){
-    
+ 
  
  var arr = JSON.parse(localStorage.getItem("transformed"));
 // var obj = arr.find(obj => obj["todo"] == selection);
@@ -163,16 +173,21 @@ document.getElementById("output").innerHTML = a;
 
     for (var i = 0; i < labels.length; i++) {
         if (labels[i].htmlFor == selection ) {
-           
+          alert(JSON.stringify(obj["bold"]))
             if(obj["bold"] == "false"){
-            obj["bold"] = "true"
-            localStorage.setItem("transformed", JSON.stringify(transformed));
-            labels[i].classList.add("bold");
-        }else{
-            obj["bold"] = "false";
-            localStorage.setItem("transformed", JSON.stringify(transformed));
-            labels[i].classList.remove("bold");
-            } 
+                labels[i].classList.add("bold");
+                obj["bold"] = "true";
+
+                localStorage.setItem("transformed", JSON.stringify(transformed));
+            
+        }
+        
+            if(obj["bold"] == "true"){
+                labels[i].classList.remove("bold");
+                obj["bold"] = "false";
+                localStorage.setItem("transformed", JSON.stringify(transformed));
+                
+                } 
             alert(a)  
            /* if(labels[i].classList.contains("bold")){
                 alert(obj)
