@@ -266,17 +266,19 @@ function clearList() {
 //If the checkbox is checked, deletes that item
 //from the arrays then reloads the page so the updated list appears.
 
-    var checks = JSON.parse(localStorage.getItem("checks"));
-    var tasks = JSON.parse(localStorage.getItem("tasks"));
-    var x = document.querySelectorAll("input[type='checkbox']");
-    for (var i=x.length-1; i >=0; i--){
-        if(x[i].checked){
-            tasks.splice(i, 1);
+    //var checks = JSON.parse(localStorage.getItem("checks"));
+    //var checks = JSON.parse(localStorage.getItem("tasks"));
+    var transformed = JSON.parse(localStorage.getItem("transformed"));
+    var check = document.querySelectorAll("input[type='checkbox']");
+    for (var i=check.length-1; i >=0; i--){
+        if(check[i].checked){
+            
+            transformed.splice(i, 1);
             checks.splice(i, 1);
         }
     } 
     
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("transformed", JSON.stringify(transformed));
     localStorage.setItem("checks", JSON.stringify(checks));
 
     location.reload(true);
