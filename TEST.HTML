@@ -84,7 +84,7 @@ var labels = document.getElementsByTagName('LABEL');
 }
 
 function createCheckbox(obj) {
-
+    
 //var a = JSON.stringify(obj["todo"]);
 //document.getElementById("output").innerHTML = a;       
 
@@ -209,8 +209,7 @@ document.getElementById("output").innerHTML = a;
 
             }  
         }     
-        var a = JSON.stringify(obj);
-document.getElementById("output").innerHTML = "after bold  " + a; 
+        
     } 
     
     
@@ -224,23 +223,39 @@ function getInput() {
     var inputField = document.getElementById("myTask"); 
         
     var value = inputField.value; 
+    
     createArray(value);
 }
 
 function createArray(val) {
-//Get the array from local storage and add to it.
-    var tasks = JSON.parse(localStorage.getItem("tasks"));
-    var checks = JSON.parse(localStorage.getItem("checks"));    
 
+    //Get the array from local storage and add to it.
+    var transformed = JSON.parse(localStorage.getItem("transformed"));
+    var tasks = JSON.parse(localStorage.getItem("tasks"));
+    var checks = JSON.parse(localStorage.getItem("checks")); 
+    
+    var nd = new Date().toLocaleDateString('en-us', { weekday:"long"});
+    var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
+    var dt = new Date().toLocaleDateString(); 
+   
 //get value from getInput()
 //If the value isn't an empty string, push into Array and save to storage
 //If the value is an empty string, alert user  
+   
     if (val !== "") {
-        tasks.push(val); 
-        checks.push(0);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        localStorage.setItem("checks", JSON.stringify(checks));      
-        createCheckbox(val);
+        var obj = {
+            "todo": val,
+            "checked": "false",
+            "bold": "false",
+            "day" : nd,
+            "time" : tm,
+            "date" : dt
+            
+        };
+
+        transformed.push(obj);  
+        localStorage.setItem("transformed", JSON.stringify(transformed));  
+        createCheckbox(obj);
     } else {
         alert("Enter a Task");
     }
