@@ -65,20 +65,20 @@ function loadList(transformed, tasks, checks) {
 //runs through when page loads or reloads and adds checks.  
 //var transformed = JSON.parse(localStorage.getItem("transformed"));
 
+var a = JSON.stringify(transformed);
+document.getElementById("output").innerHTML = a; 
 
 var checkbox = document.querySelectorAll("input[type='checkbox']");
 var labels = document.getElementsByTagName('LABEL');
 
-
     for (var i = 0; i < transformed.length; i++){
-        var obj = transformed[i];
-            if (checkbox[i].checked == true ){
+        let obj = transformed[i];
+        if (checkbox[i].checked == true ){
             labels[i].classList.add("gray");
         } 
 
-        if (obj["bold"]=="true"){
-            labels[i].classList.add("bold");
-            
+        if (obj["bold" == "true"]){
+            labels[i].classList.add("bold");   
         }
     }    
 }
@@ -132,7 +132,7 @@ function boxChecked(e){
 
     
 
-    var labels = document.getElementsByTagName('LABEL');
+var labels = document.getElementsByTagName('LABEL');
   
     for (var i = 0; i < labels.length; i++) {
         if (labels[i].htmlFor == value ) {
@@ -165,52 +165,47 @@ function makeBold(){
 	var selection = window.getSelection();
     var obj = arr.find(obj => obj["todo"] == selection);
     var labels = document.getElementsByTagName('LABEL');
-    var indx = arr.indexOf(obj);    
-    
+        
+    var a = JSON.stringify(obj["bold"]);
+document.getElementById("output").innerHTML = a; 
 
 
 
     for (var i = 0; i < labels.length; i++) {
         if (labels[i].htmlFor == selection ) {
-          
-            /*if(obj["bold"] == "false"){
+          alert(JSON.stringify(obj["bold"]))
+            if(obj["bold"] == "false"){
                 labels[i].classList.add("bold");
                 obj["bold"] = "true";
 
-                var a = JSON.stringify(obj);
-document.getElementById("output").innerHTML = a; 
-
                 localStorage.setItem("transformed", JSON.stringify(transformed));
             
-        }*/
+        }
         
-            /*if(obj["bold"] == "true"){
+            if(obj["bold"] == "true"){
                 labels[i].classList.remove("bold");
                 obj["bold"] = "false";
                 localStorage.setItem("transformed", JSON.stringify(transformed));
                 
-                }*/ 
-            
-           if(labels[i].classList.contains("bold")){
+                } 
+            alert(a)  
+           /* if(labels[i].classList.contains("bold")){
+                alert(obj)
                 labels[i].classList.remove("bold");
                 obj["bold"] = "false"
-                arr.splice(indx, 1, obj);
-                var a = JSON.stringify(obj);
-                localStorage.setItem("transformed", JSON.stringify(arr));  
+                localStorage.setItem("transformed", JSON.stringify(transformed));
                 
+                alert("undo bold " + obj)
                 
-                
-            } else { 
+            } else { labels[i].classList.contains("bold");
                 labels[i].classList.add("bold");
                 obj["bold"] = "true"
-                arr.splice(indx, 1, obj); 
-               var a = JSON.stringify(obj);
-               localStorage.setItem("transformed", JSON.stringify(arr));  
+               // var a = JSON.stringify(obj);
+                alert("make bold " + obj)
+                localStorage.setItem("transformed", JSON.stringify(transformed));
 
-            }  
+            } */  
         }     
-        var a = JSON.stringify(obj);
-document.getElementById("output").innerHTML = "after bold  " + a; 
     } 
     
     
