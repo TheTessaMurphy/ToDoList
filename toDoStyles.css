@@ -50,4 +50,11 @@ label {
     display: inline-block;
     padding-top: 4px;
     height: 20px;
+
+    
 }
+
+input[type='text']:focus {
+    outline: none;
+    
+  }
