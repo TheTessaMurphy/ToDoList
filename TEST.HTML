@@ -12,7 +12,7 @@
                 <input type="text" id="myTask" style="width:350px"> 
                 <input type="button" id="myButton" onclick="getInput()" value="To Do">
                 <input type="button" id="Clear" onclick="clearList()" value="Clear Checked">
-                <input type ="button" id="mkBold" onclick="makeBold()" value = "B">
+                <!-- <input type ="button" id="mkBold" onclick="makeBold()" value = "B"> -->
                 <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
                 <p></p>
                 
@@ -105,6 +105,7 @@ var linebreak = document.createElement("br");
     var label = document.createElement("LABEL");
     checkboxes.value=obj["todo"];
     checkboxes.checked=JSON.parse(obj["checked"]);
+    label.addEventListener("click", makeBold); 
     label.htmlFor = obj["todo"];
     
     
@@ -156,63 +157,34 @@ function boxChecked(e){
 }
 
 function makeBold(){
- 
- 
- var arr = JSON.parse(localStorage.getItem("transformed"));
-// var obj = arr.find(obj => obj["todo"] == selection);
-
-    var selection = window.getSelection();
-    selection = selection.toString().trim();
-	var obj = arr.find(obj => obj["todo"] == selection);
-    var labels = document.getElementsByTagName('LABEL');
-    var indx = arr.indexOf(obj);    
     
-
-
-
+    //SEE TEST!!
+    var target = event.target;
+    const value = event.target.htmlFor;
+    var arr = JSON.parse(localStorage.getItem("transformed"));
+    var obj = arr.find(obj => obj["todo"] === value);
+    var indx = arr.indexOf(obj);
+    
+    var labels = document.getElementsByTagName('LABEL');
+  
     for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor == selection ) {
-          
-            /*if(obj["bold"] == "false"){
-                labels[i].classList.add("bold");
-                obj["bold"] = "true";
-
-                var a = JSON.stringify(obj);
-document.getElementById("output").innerHTML = a; 
-
-                localStorage.setItem("transformed", JSON.stringify(transformed));
+        if (labels[i].htmlFor == value ) {
             
-        }*/
-        
-            /*if(obj["bold"] == "true"){
-                labels[i].classList.remove("bold");
-                obj["bold"] = "false";
-                localStorage.setItem("transformed", JSON.stringify(transformed));
-                
-                }*/ 
-            
-           if(labels[i].classList.contains("bold")){
+            if(target.classList.contains("bold")){
                 labels[i].classList.remove("bold");
                 obj["bold"] = "false"
-                arr.splice(indx, 1, obj);
-                var a = JSON.stringify(obj);
-                localStorage.setItem("transformed", JSON.stringify(arr));  
-                
-                
-                
+                arr.splice(indx, 1, obj); 
+               localStorage.setItem("transformed", JSON.stringify(arr));   
+            
             } else { 
                 labels[i].classList.add("bold");
                 obj["bold"] = "true"
                 arr.splice(indx, 1, obj); 
-               var a = JSON.stringify(obj);
-               localStorage.setItem("transformed", JSON.stringify(arr));  
-
+                localStorage.setItem("transformed", JSON.stringify(arr));  
             }  
-        }     
         
+        }    
     } 
-    
-    
 }
 
      
@@ -223,7 +195,6 @@ function getInput() {
     var inputField = document.getElementById("myTask"); 
         
     var value = inputField.value; 
-    
     createArray(value);
 }
 
@@ -260,7 +231,7 @@ function createArray(val) {
         alert("Enter a Task");
     }
 }    
-         
+
 function clearList() {
 //runs through the list backwards because splice throws numbers off.
 //If the checkbox is checked, deletes that item
@@ -283,5 +254,5 @@ function clearList() {
 
     location.reload(true);
 }
-    
-    </script>
+
+</script>
