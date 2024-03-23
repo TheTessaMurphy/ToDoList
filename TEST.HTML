@@ -37,7 +37,7 @@ myTask.addEventListener("keypress", function(event) {
 
 function Main() {
     //Get arrays from local storage
-    var input = document.getElementById("myTask").focus();
+    document.getElementById("myTask").focus();
 
     var transformed = JSON.parse(localStorage.getItem("transformed"));
     var tasks = JSON.parse(localStorage.getItem("tasks"));
