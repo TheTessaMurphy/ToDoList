@@ -37,23 +37,23 @@
         <h2 id="dayText"></h2>
         <input type="text" id="enterTask" class="w3-input w3-border" type="text" placeholder="Enter Task"  >
       </header>
-      <div class="w3-container">
-        <ul id="myList" class="w3-ul ">
-            <li id="0" onclick="removeItem()"><i class="fa fa-trash"></i> Home</li>
-            <li id="1" onclick="removeItem()"><i class="fa fa-trash"></i> Jill</li>
-            <li id="2" onclick="removeItem()"><i class="fa fa-trash"></i> Eve</li>
-            <li id="3" onclick="removeItem()"><i class="fa fa-trash"></i> Adam</li>
-          </ul>
-      </div>
+        <div class="w3-container">
+            <ul id="myList" class="w3-ul ">
+                <li id="0" onclick="removeItem()"><i class="fa fa-trash"></i> Home</li>
+                <li id="1" onclick="removeItem()"><i class="fa fa-trash"></i> Jill</li>
+                <li id="2" onclick="removeItem()"><i class="fa fa-trash"></i> Eve</li>
+                <li id="3" onclick="removeItem()"><i class="fa fa-trash"></i> Adam</li>
+            </ul>
+        </div>
       
     </div>
   </div>
               
  
 
-     <script>
+<script>
 
-
+const days = [];
 
 //EVENT HANDLER FOR SELECT
 /*    document.querySelector('#ice-cream').onchange = changeEventHandler;
@@ -65,20 +65,19 @@
     }*/
  
     
-    document.querySelector('#days').onchange = getData;
+    document.querySelector('#days').onchange = openModal;
 
-    function getData(event) {
-        
-        
-        
-       // document.getElementById("enterTask").autofocus = true;
+    function openModal(event) {
     
         document.getElementById('day').style.display='block';  
         document.getElementById("dayText").innerHTML = event.target.value;
         var dayText = event.target.value
         document.getElementById("enterTask").focus();
-        event.target.value =  "";        
+        event.target.value =  "";   
+        
+        
 }
+
 
 //***** BELOW HERE, WORKING ON ARRAY *****
 
@@ -90,12 +89,12 @@ document.getElementById("enterTask").addEventListener("change", addItem);
         const elem = document.getElementById("myList");
         var item = document.getElementById(value);
         elem.removeChild(item);       
-     
     }
 
     function addItem(){
         const elem = document.getElementById("myList");
         const input = document.getElementById("enterTask");
+        var value = input.value;
         var length = document.getElementById("myList").getElementsByTagName("li").length;
         var itemId = length + 1;
         var listItem = document.createElement("li");
@@ -107,11 +106,48 @@ document.getElementById("enterTask").addEventListener("change", addItem);
         
         let i = document.createElement("i");
         i.classList.add("fa","fa-trash")
-        listItem.innerHTML = i.outerHTML + " " + input.value
+        listItem.innerHTML = i.outerHTML + " " + value
        
         input.value = "";
         elem.appendChild(listItem);
+        createDaysArray(value)
     }
+
+function createDaysArray(val) {
+
+//Get the array from local storage and add to it.
+//get value from getModalInput()
+//If the value isn't an empty string, create object and
+//push into Array and save to storage
+//If the value is an empty string, alert user  
+
+
+var days = JSON.parse(localStorage.getItem("days"));
+alert(JSON.stringify(days))  
+    var nd = document.getElementById("dayText").innerHTML
+    var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
+    var dt = new Date().toLocaleDateString(); 
+
+    if (val !== "") {
+        var obj = {
+            "todo": val,
+            "checked": "false",
+            "bold": "true",
+            "day" : nd,
+            "time" : tm,
+            "date" : dt
+        };
+
+        days.push(obj);  
+        localStorage.setItem("days", JSON.stringify(days));  
+        //createCheckbox(obj);
+        alert(JSON.stringify(days)) 
+        
+    } else {
+        alert("Enter a Task");
+        
+    }
+}    
     </script>   
     </body>
 </html>

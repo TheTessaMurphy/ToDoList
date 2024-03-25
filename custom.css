@@ -33,3 +33,7 @@
 ::-ms-input-placeholder { /* Edge 12 -18 */
   color: gray;
 }
+
+#myList {
+  cursor: pointer;
+}
