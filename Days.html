@@ -126,7 +126,7 @@ document.getElementById("enterTask").addEventListener("change", getModalInput);
     }
     
     function addItem(value){
-        
+       
         const elem = document.getElementById("modalList");
         const input = document.getElementById("enterTask");
         //var value = input.value;
@@ -161,16 +161,18 @@ var days = JSON.parse(localStorage.getItem("days"));
     var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
     var dt = new Date().toLocaleDateString(); 
 
-    if (val !== "") {
+    if (value !== "") {
+        
         var obj = {
-            "todo": val,
+            "todo": value,
             "checked": "false",
             "bold": "true",
             "day" : nd,
             "time" : tm,
             "date" : dt
+            
         };
-
+        
         days.push(obj);  
         localStorage.setItem("days", JSON.stringify(days));  
         
