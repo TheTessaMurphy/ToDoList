@@ -136,8 +136,8 @@ document.getElementById("enterTask").addEventListener("change", getModalInput);
         var iconClass = "sourceText fa fa-trash"
                     
         listItem.setAttribute("id", itemId);
-        //listItem.addEventListener("click", removeItem);
-        listItem.setAttribute("onclick","removeItem()");
+        listItem.addEventListener("click", removeItem);
+        //listItem.setAttribute("onclick","removeItem()");
         let i = document.createElement("i");
         i.classList.add("fa","fa-trash")
         listItem.innerHTML = i.outerHTML + " " + value;
