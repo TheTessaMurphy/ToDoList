@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TEMPFILE</title>
+        
+    </head>
+    <body>
+<input type="button" value="button" onclick="main()">
+   
+
+<script>
+
+function main(val) {
+alert("here " + val)
+var val = 1;
+three(val);    
+alert("after three " + val)
+val = val + 2;
+alert("before two " + val);
+two(val);
+    
+}
+
+function one(val){
+    alert("one " + val)
+    val = val + 1 
+    return(val);
+}
+
+function two(val){
+    alert("two " + val);
+}
+
+function three(val) {
+
+    alert("three " + val)
+    val = val + 1;
+    alert("three before call" + val)
+    val = one(val);
+    alert("three end "+ val)
+    return(val);
+}
+</script>
+
+
+</body>
+</html>
