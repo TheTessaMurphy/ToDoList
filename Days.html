@@ -5,22 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="custom.css">
         <link rel="stylesheet" href="toDoStyles.css">
         
     </head>
     <body>
-<!--BOOTSTRAP CONTAINER-->
-<div class="container pt-3 pb-15 mb-15">
-    <h1 class="mb-5">Days</h1>
-    <p>This part is inside a .container-fluid class.</p>
-    <p>The .container-fluid class provides a full width container, spanning the entire width of the viewport.</p>
-    <button type="button" class="btn primary">Primary</button>
-  </div>
-
-
-
-
 
 
   <!--START HERE LIST OF DAYS-->          
@@ -28,7 +18,7 @@
     <option value="" disabled selected>Choose a day</option>
     <option value="Everyday">Everyday</option>
     <option value="Monday">Monday</option>
-    <option value="Tuesday">Tueday</option>
+    <option value="Tuesday">Tuesday</option>
     <option value="Wednesday">Wednesday</option>
     <option value="Thursday">Thursday</option>
     <option value="Friday">Friday</option>
@@ -37,25 +27,34 @@
   </select>
   
   <!-- The Modal -->
-  <div id="day" class="w3-modal">
+  <div id="day" class="w3-container w3-modal">
     <div class="w3-modal-content">
-      <header class="w3-container w3-white"> 
+      <header class="w3-container"> 
+        
         <span onclick="document.getElementById('day').style.display='none'" 
-        class="w3-container w3-btn w3-ripple w3-teal w3-round-large w3-display-topright">close</span>
+        class="w3-btn w3-circle w3-teal w3-ripple w3-large w3-display-topright">&times;</span>
+        
         <h2 id="dayText"></h2>
-        <input id="enterTask" class="w3-input w3-border" type="text" placeholder="Enter Task"  >
+        <input type="text" id="enterTask" class="w3-input w3-border" placeholder="Enter Task"  >
+        
       </header>
-      <div class="w3-container">
-        <p>Some text..</p>
-        <p>Some text..</p>
-      </div>
+        <div class="w3-container">
+            <ul id="modalList" class="w3-ul ">
+                <li id="0" onclick="removeItem()"><i class="fa fa-trash"></i> Home</li>
+                <li id="1" onclick="removeItem()"><i class="fa fa-trash"></i> Jill</li>
+                <li id="2" onclick="removeItem()"><i class="fa fa-trash"></i> Eve</li>
+                <li id="3" onclick="removeItem()"><i class="fa fa-trash"></i> Adam</li>
+            </ul>
+        </div>
       
     </div>
   </div>
               
  
-     <script>
 
+<script>
+
+const days = [];
 
 //EVENT HANDLER FOR SELECT
 /*    document.querySelector('#ice-cream').onchange = changeEventHandler;
@@ -67,17 +66,123 @@
     }*/
  
     
-    document.querySelector('#days').onchange = getData;
+    document.querySelector('#days').onchange = openModal;
 
-    function getData(event) {
-        //document.getElementById("enterTask").focus();
-        document.getElementById("enterTask").autofocus = true;
+    function openModal(event) {
     
-    document.getElementById('day').style.display='block';  
-    document.getElementById("dayText").innerHTML = event.target.value;
-    event.target.value =  "";        
+        document.getElementById('day').style.display='block';  
+        document.getElementById("dayText").innerHTML = event.target.value;
+        var dayText = event.target.value
+        document.getElementById("enterTask").focus();
+        event.target.value =  "";   
+        
+        var days = JSON.parse(localStorage.getItem("days"));
+
+       
+        document.getElementById("modalList").innerHTML = "";
+        
+        for (var i = 0; i < days.length; i++) {
+            var obj = days[i];
+            if (obj['day'] == dayText) {
+                var value = obj['todo'];
+                addItem(value);
+            }
+        }
+        
 }
+
+
+//***** BELOW HERE, WORKING ON ARRAY *****
+
+document.getElementById("enterTask").addEventListener("change", getModalInput);
+
+    function removeItem(e) {
+        
+        const value = event.target.id;
+        const elem = document.getElementById("modalList");
+        var item = document.getElementById(value);
+        var string = item.innerText;
+        var str = string.trimStart();
+        
+        var days = JSON.parse(localStorage.getItem("days"));
+        var idx = days.findIndex(i => i["todo"] === str);
+        var obj = days.find(obj => obj["todo"] === str);
+        
+        days.splice(idx, 1);
+        localStorage.setItem("days", JSON.stringify(days));  
+        
+        elem.removeChild(item);       
+    }
+
     
-     </script>   
+
+    function getModalInput() {
+        //var input = document.getElementById("enterTask");
+        
+        var value = document.getElementById("enterTask").value;
+        
+        addItem(value);
+        createDaysArray(value);
+    }
+    
+    function addItem(value){
+       
+        const elem = document.getElementById("modalList");
+        const input = document.getElementById("enterTask");
+        //var value = input.value;
+        var length = document.getElementById("modalList").getElementsByTagName("li").length;
+        var itemId = length + 1;
+        var listItem = document.createElement("li");
+        var iconClass = "sourceText fa fa-trash"
+                    
+        listItem.setAttribute("id", itemId);
+        listItem.addEventListener("click", removeItem);
+        //listItem.setAttribute("onclick","removeItem()");
+        let i = document.createElement("i");
+        i.classList.add("fa","fa-trash")
+        listItem.innerHTML = i.outerHTML + " " + value;
+       
+        input.value = "";
+        elem.appendChild(listItem);
+        
+    }
+
+function createDaysArray(value) {
+
+//Get the array from local storage and add to it.
+//get value from getModalInput()
+//If the value isn't an empty string, create object and
+//push into Array and save to storage
+//If the value is an empty string, alert user  
+
+var days = JSON.parse(localStorage.getItem("days"));
+  
+    var nd = document.getElementById("dayText").innerHTML
+    var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
+    var dt = new Date().toLocaleDateString(); 
+
+    if (value !== "") {
+        
+        var obj = {
+            "todo": value,
+            "checked": "false",
+            "bold": "true",
+            "day" : nd,
+            "time" : tm,
+            "date" : dt
+            
+        };
+        
+        days.push(obj);  
+        localStorage.setItem("days", JSON.stringify(days));  
+        
+         
+        
+    } else {
+        alert("Enter a Task");
+        
+    }
+}    
+    </script>   
     </body>
 </html>
