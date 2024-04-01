@@ -48,7 +48,7 @@ function createCheckbox(obj) {
         var checkboxes = document.createElement("INPUT");
         
         checkboxes.setAttribute("type", "checkbox");
-        checkboxes.setAttribute("class", "chkbox");
+        checkboxes.setAttribute("class", "w3-check");
         checkboxes.addEventListener("click", boxChecked);
         
         var label = document.createElement("LABEL");
@@ -59,6 +59,7 @@ function createCheckbox(obj) {
         
         myFieldset.appendChild(checkboxes);
         myFieldset.appendChild(label);
+        label.appendChild(document.createTextNode(" "));
         label.appendChild(document.createTextNode(obj["todo"]));
         myFieldset.appendChild(linebreak);
         

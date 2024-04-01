@@ -1,0 +1,30 @@
+
+/*.w3-select {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}*/
+
+
+
+::placeholder {
+  color: gray;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: gray;
+}
+
+li {
+  cursor: pointer;
+}
+
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.btnCircle{
+  margin: 3px;
+}
