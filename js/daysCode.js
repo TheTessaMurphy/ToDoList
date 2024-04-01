@@ -1,10 +1,19 @@
-function openModal(event) {
+
+function openModalTemp(value){
+    //const value = event.target.id;
+    var dayText = value;
+    
+    alert(dayText)
+  }
+
+
+function openModal(value) {
     
     document.getElementById('day').style.display='block';  
-    document.getElementById("dayText").innerHTML = event.target.value;
-    var dayText = event.target.value
+    document.getElementById("dayText").innerHTML = value;
+    var dayText = value;
     document.getElementById("enterTask").focus();
-    event.target.value =  "";   
+    //event.target.value =  "";   
     
     var days = JSON.parse(localStorage.getItem("days"));
 
@@ -63,7 +72,7 @@ function addItem(value){
     var length = document.getElementById("modalList").getElementsByTagName("li").length;
     var itemId = length + 1;
     var listItem = document.createElement("li");
-    var iconClass = "sourceText fa fa-trash"
+    
                 
     listItem.setAttribute("id", itemId);
     listItem.addEventListener("click", removeItem);
