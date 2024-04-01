@@ -1,32 +1,66 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ToDoList</title>
+        <title>TEST</title>
         <link rel="icon" type="image/x-icon" href="favicon.png">
-        <link rel="stylesheet" href="css/toDoStyles.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/w3ColorThemes.css">
+        <link rel="stylesheet" href="css\toDoStyles.css">
+        <link rel="stylesheet" href="css\custom.css">
+       
+        
+        <script type="text/javascript" src="js/toDoCode.js"></script>
     </head>
+    
     <body onload="Main()">
-        <div id = "myListDiv">
-            <h1>My ToDo List</h1>
-            <form id="myList">
-                <input type="text" id="myTask" style="width:350px"> 
-                <input type="button" id="myButton" onclick="getInput()" value="To Do">
-                <input type="button" id="Clear" onclick="clearList()" value="Clear Checked">
-                <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
-                <p></p>
-                
-            </form>  
+    <div class="w3-display-container w3-row-padding ">
+        
+    <div id="bigContainer" class="w3-quarter w3-hide-small"><image src="C:\Users\tessa\OneDrive\Pictures\train track resize.jpg"></image></div>
+    
+    <div class="w3-display-container w3-half w3-padding-10 w3-card-4 w3-theme-l2">
+        
+           <div class="w3-display-container w3-padding-16">
+            <button id="days" class="btnCircle w3-btn w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple w3-right " >D</button>
+            <button id="Clear" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-ripple w3-right w3-circle" onclick="clearList()"><i class="fa fa-trash"></i></button>
+            <button id="myButton" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-right w3-circle" onclick="getInput()" >&plus;</button>
         </div>
-        <div id="output"></div>    
+        <h1 class="w3-padding-32 w3-center w3-margin-top w3-margin-bottom">My ToDo List</h1>
+        
+        <form class="w3-container" id="myList"  >
+            <input id="myTask" class="w3-input " type="text">
+            
+            <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
+            <p></p>
+         </form>  
+        </div>
+    <div class="w3-quarter w3-hide-small"></div>
+        
+    </div>
+        <!--<div class="w3-container w3-theme-l2 w3-card-4">
+        <h1 class="w3-center">My ToDo List</h1>
+        <form class="w3-container id="myList"  >
+         
+            <input type="text" id="myTask" style="width:75%"> 
+            <button id="myButton" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2" onclick="getInput()" >&plus;</button>
+            <button id="Clear" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" onclick="clearList()"><i class="fa fa-trash"></i></button>
+            <button id="days" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" ><i class="fa fa-trash"></i></button>
+        
+            <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
+            <p></p>
+         </form>  
+    </div> --> 
+    
+            
+       
+     
     </body>
 </html>
 
 <script>
 
 
-const tasks = [];
-const checks = [];
-
+//******  EXECUTE A FUNCTION WHEN THE USR PRESSES A KEY ON THE KEYBOARD GOES HERE************
 // Execute a function when the user presses a key on the keyboard
 myTask.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -35,190 +69,23 @@ myTask.addEventListener("keypress", function(event) {
     }
 });
 
-function Main() {
-    //Get arrays from local storage
-    var input = document.getElementById("myTask").focus();
+//***********MAIN GOES HERE*************
+//****** LOAD LIST GOES HERE*************
 
-    var transformed = JSON.parse(localStorage.getItem("transformed"));
-    var tasks = JSON.parse(localStorage.getItem("tasks"));
-    var checks = JSON.parse(localStorage.getItem("checks"));    
-    
-    //Call loadList to create list on page
-    loadList(transformed, tasks, checks);   
-    
-}
 
-function loadList(transformed, tasks, checks) {
+//*********** CREATE CHECKBOX GOES HERE******************
 
-//Get array and create a loop to call createCheckbox to create each checkbox
-//Then call createCheckbox to check or uncheck boxes.
-    if (transformed.length != 0){
-        transformed.forEach(createCheckbox);
-    }
+ 
+//****************BOXCHECKED GOES HERE*****************
 
-//runs through when page loads or reloads and adds checks and bold.  
-var checkbox = document.querySelectorAll("input[type='checkbox']");
-var labels = document.getElementsByTagName('LABEL');
+//***************MAKEBOLD GOES HERE **************
 
-    for (var i = 0; i < transformed.length; i++){
-        var obj = transformed[i];
-        if (checkbox[i].checked == true ){
-            labels[i].classList.add("gray");
-        } 
 
-        if (obj["bold"]=="true"){
-            labels[i].classList.add("bold");
-            
-        }
-    }    
-}
+//***********GET INPUT GOES HERE***************
 
-function createCheckbox(obj) {
-    
-//Create a linebreak so that checkboxes create list rather than side by side
-var linebreak = document.createElement("br"); 
+//***********CREATEARRAY GOES HERE***************
 
-//read each task from loadList and create the checkbox and label
-//then append to boxChecked field so it shows up on the screen
-//and finally, clear input box
-    var checkboxes = document.createElement("INPUT");
-    
-    checkboxes.setAttribute("type", "checkbox");
-    checkboxes.setAttribute("class", "chkbox");
-    checkboxes.addEventListener("click", boxChecked);
-    
-    var label = document.createElement("LABEL");
-    checkboxes.value=obj["todo"];
-    checkboxes.checked=JSON.parse(obj["checked"]);
-    label.addEventListener("click", makeBold); 
-    label.htmlFor = obj["todo"];
-    
-    myFieldset.appendChild(checkboxes);
-    myFieldset.appendChild(label);
-    label.appendChild(document.createTextNode(obj["todo"]));
-    myFieldset.appendChild(linebreak);
-    
-    document.getElementById('myTask').value = "";   //Clear the input box
-}   
-  
-function boxChecked(e){
-// Called when a checkbox is clicked
-// if the checkbox is checked, a class is added to its label
-// that turns the text gray. If checkbox is unchecked, the class is removed
-// the value in the object is changed and the array saved to local storage      
-    
-    var target = event.target;
-    const value = event.target.value;
-    var arr = JSON.parse(localStorage.getItem("transformed"));
-    var obj = arr.find(obj => obj["todo"] === value);
-    var indx = arr.indexOf(obj);
-    var labels = document.getElementsByTagName('LABEL');
-  
-    for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor == value ) {
-            
-            if(target.checked){
-                labels[i].classList.add("gray");
-                obj["checked"] = "true";
-                arr.splice(indx, 1, obj);
-                localStorage.setItem("transformed", JSON.stringify(arr));   
-            } else { labels[i].classList.remove("gray");
-            obj["checked"] = "false"
-            arr.splice(indx, 1, obj);
-            localStorage.setItem("transformed", JSON.stringify(arr));  
-            }  
-        }    
-    } 
-}
+//***********CLEARLIST GOES HERE***************
 
-function makeBold(){
-//Similar to boxChecked but the label is checked
-//rather than the checkbox    
-    
-    var target = event.target;
-    const value = event.target.htmlFor;
-    var arr = JSON.parse(localStorage.getItem("transformed"));
-    var obj = arr.find(obj => obj["todo"] === value);
-    var indx = arr.indexOf(obj);
-    
-    var labels = document.getElementsByTagName('LABEL');
-  
-    for (var i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor == value ) {
-            
-            if(target.classList.contains("bold")){
-                labels[i].classList.remove("bold");
-                obj["bold"] = "false"
-                arr.splice(indx, 1, obj); 
-               localStorage.setItem("transformed", JSON.stringify(arr));   
-            } else { 
-                labels[i].classList.add("bold");
-                obj["bold"] = "true"
-                arr.splice(indx, 1, obj); 
-                localStorage.setItem("transformed", JSON.stringify(arr));  
-            }  
-        }    
-    } 
-}
-
-function getInput() {
-
-// Get the input element by its ID
-//and pass it to createArray 
-    var inputField = document.getElementById("myTask"); 
-    var value = inputField.value; 
-    
-    createArray(value);
-}
-
-function createArray(val) {
-
-//Get the array from local storage and add to it.
-//get value from getInput()
-//If the value isn't an empty string, create object and
-//push into Array and save to storage
-//If the value is an empty string, alert user  
-
-var transformed = JSON.parse(localStorage.getItem("transformed"));
-        
-    var nd = new Date().toLocaleDateString('en-us', { weekday:"long"});
-    var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
-    var dt = new Date().toLocaleDateString(); 
-
-    if (val !== "") {
-        var obj = {
-            "todo": val,
-            "checked": "false",
-            "bold": "false",
-            "day" : nd,
-            "time" : tm,
-            "date" : dt
-        };
-
-        transformed.push(obj);  
-        localStorage.setItem("transformed", JSON.stringify(transformed));  
-        createCheckbox(obj);
-    } else {
-        alert("Enter a Task");
-    }
-}    
-
-function clearList() {
-//runs through the list backwards because splice throws numbers off.
-//If the checkbox is checked, deletes that item
-//from the array then reloads the page so the updated list appears.
-
-    var transformed = JSON.parse(localStorage.getItem("transformed"));
-    var check = document.querySelectorAll("input[type='checkbox']");
-    for (var i=check.length-1; i >=0; i--){
-        if(check[i].checked){
-            
-            transformed.splice(i, 1);
-        }
-    } 
-    
-    localStorage.setItem("transformed", JSON.stringify(transformed));
-    location.reload(true);
-}
 
 </script>
