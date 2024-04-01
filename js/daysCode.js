@@ -35,17 +35,17 @@ function openModal(value) {
 
 
 
-function removeItem(e) {
+function removeItem(value) {
     
-    const value = event.target.id;
+    //const value = event.target.id;
     const elem = document.getElementById("modalList");
     var item = document.getElementById(value);
-    var string = item.innerText;
-    var str = string.trimStart();
+    var str = item.innerText.trimStart();
+    //var str = string.trimStart();
     
     var days = JSON.parse(localStorage.getItem("days"));
     var idx = days.findIndex(i => i["todo"] === str);
-    var obj = days.find(obj => obj["todo"] === str);
+    //var obj = days.find(obj => obj["todo"] === str);
     
     days.splice(idx, 1);
     localStorage.setItem("days", JSON.stringify(days));  
@@ -75,8 +75,8 @@ function addItem(value){
     
                 
     listItem.setAttribute("id", itemId);
-    listItem.addEventListener("click", removeItem);
-    listItem.setAttribute("onclick","removeItem()");
+    //listItem.addEventListener("click", removeItem);
+    //listItem.setAttribute("onclick","removeItem()");
     let i = document.createElement("i");
     i.classList.add("fa","fa-trash")
     listItem.innerHTML = i.outerHTML + " " + value;
