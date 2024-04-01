@@ -54,7 +54,7 @@ function createCheckbox(obj) {
         var label = document.createElement("LABEL");
         checkboxes.value=obj["todo"];
         checkboxes.checked=JSON.parse(obj["checked"]);
-        label.addEventListener("click", makeBold); 
+        //label.addEventListener("click", makeBold); 
         label.htmlFor = obj["todo"];
         
         myFieldset.appendChild(checkboxes);
@@ -96,12 +96,13 @@ function boxChecked(e){
         } 
     }
 
-function makeBold(){
+function makeBold(elt){
     //Similar to boxChecked but the label is checked
     //rather than the checkbox    
+       
+        var target = elt;
+        const value = elt.htmlFor;
         
-        var target = event.target;
-        const value = event.target.htmlFor;
         var arr = JSON.parse(localStorage.getItem("transformed"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
@@ -110,7 +111,6 @@ function makeBold(){
         
         for (var i = 0; i < labels.length; i++) {
             if (labels[i].htmlFor == value ) {
-                
                 if(target.classList.contains("bold")){
                     labels[i].classList.remove("bold");
                     obj["bold"] = "false"

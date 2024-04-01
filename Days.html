@@ -13,7 +13,7 @@
     </head>
     <body>
 
-
+<button id="checkArray" onclick="checkArray()">check</button>
   <!--START HERE LIST OF DAYS-->          
   <select id="days" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" name="option"></i>
     <option class="w3-sand w3-hover-sand" value="" disabled selected>Select a day</option>
@@ -54,33 +54,40 @@
   </div>
 
 
-  <div class="w3-dropdown-hover">
+  <!--<div class="w3-dropdown-hover">
     <button class="w3-button w3-black"><i class="fa fa-tasks" aria-hidden="true"></i></button>
     <div class="w3-dropdown-content w3-bar-block ">
       <select name="option">
         <option class="w3-sand  value="" disabled selected>Select a day</option>
-        <option class="w3-sand" value="Everyday">Everyday</option>
-        <option class="w3-sand" value="Monday">Monday</option>
-        <option class="w3-sand" value="Tuesday">Tuesday</option>
-        <option class="w3-sand" value="Wednesday">Wednesday</option>
-        <option class="w3-sand" value="Thursday">Thursday</option>
-        <option class="w3-sand" value="Friday">Friday</option>
-        <option class="w3-sand" value="Saturday">Saturday</option>
-        <option class="w3-sand" value="Sunday">Sunday</option>
+        <option id="Everyday" class="w3-sand" value="Everyday">Everyday</option>
+        <option idMonday class="w3-sand" value="Monday">Monday</option>
+        <option id="Tuesday" class="w3-sand" value="Tuesday">Tuesday</option>
+        <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
+        <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
+        <option id="Friday" class="w3-sand" value="Friday">Friday</option>
+        <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
+        <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
       </select>
     </div>
-  </div>
+  </div>-->
 
   <div class="w3-dropdown-hover">
     <button class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple"><span style="font-weight: bold">&#127895</span></button>
-    <div id="temp"  class="w3-dropdown-content w3-bar-block w3-border">
-      <option id="Wednesday"value="Wednesday">Wednesday</option>  
+    <div id="lstDays"  class="w3-dropdown-content w3-bar-block w3-border">
+      <option class="w3-sand  value="" disabled selected>Select a day</option> 
       <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
-        <option id="Monday"class="w3-sand" value="Monday">Monday</option>
-        <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
+      <option id="Monday"class="w3-sand" value="Monday">Monday</option>
+      <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
+      <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
+      <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
+      <option id="Friday" class="w3-sand" value="Friday">Friday</option>
+      <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
+      <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
 
         
     </div>
+
+    <div id="output"></div>    
 <script>
 
 //const days = [];
@@ -105,10 +112,35 @@
    // document.getElementById("Everyday").addEventListener("click", openModalTemp);
    //document.getElementById("temp").addEventListener("click", openModal);
    
-   document.getElementById("temp").addEventListener("click", function() {
+   document.getElementById("lstDays").addEventListener("click", function() {
    openModal(event.target.id);
 });
 
+  document.getElementById("modalList").addEventListener("click", function() {
+  removeItem(event.target.id);
+});
+
+
+function checkArray() {
+  
+  var arr = JSON.parse(localStorage.getItem("transformed"));
+  var days = JSON.parse(localStorage.getItem("days")); 
+  var arrTemp = JSON.parse(localStorage.getItem("transformed"));
+
+  var a = JSON.stringify(arrTemp[0]);
+  
+  for(var i = 0; i < arrTemp.length; i++){
+      arrTemp[i].day = "ongoing";
+  } 
+
+var arrToDoList = arrTemp.concat(days);
+var a = JSON.stringify(arrToDoList);
+document.getElementById("output").innerHTML = a; 
+}
+
+function getTask(value){
+ alert("here")
+}
 
 
     </script>   

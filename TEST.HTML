@@ -53,7 +53,7 @@
     
             
        
-        <div id="output"></div>    
+     
     </body>
 </html>
 
@@ -68,6 +68,14 @@ myTask.addEventListener("keypress", function(event) {
         document.getElementById("myButton").click();
     }
 });
+
+document.getElementById("myFieldset").addEventListener("click", function() {
+    makeBold(event.target);
+});
+
+function checkTarget(value){
+ alert(value.htmlFor);
+}
 
 //***********MAIN GOES HERE*************
 //****** LOAD LIST GOES HERE*************
