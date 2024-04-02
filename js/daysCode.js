@@ -7,6 +7,9 @@ function openModalTemp(value){
 
 function openModal(value) {
     
+    var x = document.getElementById("lstDays");
+    x.className = x.className.replace(" w3-show", "");
+
     document.getElementById('day').style.display='block';  
     document.getElementById("dayText").innerHTML = value;
     var dayText = value;
@@ -117,3 +120,13 @@ if (value !== "") {
     
 }
 }    
+
+function dropDown() {
+    var x = document.getElementById("lstDays");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else { 
+        var x = document.getElementById("lstDays");
+        x.className = x.className.replace(" w3-show", "");
+    }
+  }

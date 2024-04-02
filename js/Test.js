@@ -180,3 +180,5 @@ function clearList() {
         localStorage.setItem("transformed", JSON.stringify(transformed));
         location.reload(true);
     }
+
+    

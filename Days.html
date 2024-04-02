@@ -13,7 +13,21 @@
     </head>
     <body>
 
-<button id="checkArray" onclick="checkArray()">check</button>
+      <!--<div class="w3-dropdown-hover w3-right" style="background: rgba(255,255,255,0)"> 
+        <button class="w3-dropdown-hover w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple"><span style="font-weight: bold">&#127895</span></button>
+        <div id="lstDays"  class="w3-dropdown-content w3-bar-block w3-border">
+          <option class="w3-sand  value="" disabled selected>Select a day</option> 
+          <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
+          <option id="Monday"class="w3-sand" value="Monday">Monday</option>
+          <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
+          <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
+          <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
+          <option id="Friday" class="w3-sand" value="Friday">Friday</option>
+          <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
+          <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
+    </div> -->
+
+      <button id="checkArray" onclick="checkArray()">check</button>
   <!--START HERE LIST OF DAYS-->          
   <select id="days" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" name="option"></i>
     <option class="w3-sand w3-hover-sand" value="" disabled selected>Select a day</option>
@@ -71,8 +85,8 @@
     </div>
   </div>-->
 
-  <div class="w3-dropdown-hover">
-    <button class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple"><span style="font-weight: bold">&#127895</span></button>
+ <!--  <div class="w3-dropdown-hover"> 
+    <button class="w3-dropdown-hover w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple"><span style="font-weight: bold">&#127895</span></button>
     <div id="lstDays"  class="w3-dropdown-content w3-bar-block w3-border">
       <option class="w3-sand  value="" disabled selected>Select a day</option> 
       <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
@@ -83,9 +97,22 @@
       <option id="Friday" class="w3-sand" value="Friday">Friday</option>
       <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
       <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
+</div> -->
 
-        
-    </div>
+<div class="w3-dropdown-click">
+  <button onclick="dropDown()" class="w3-button w3-black">Click Me!</button>
+  <div id="lstDays" class="w3-dropdown-content w3-bar-block w3-border">
+    <option class="w3-sand  value="" disabled selected>Select a day</option> 
+      <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
+      <option id="Monday"class="w3-sand" value="Monday">Monday</option>
+      <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
+      <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
+      <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
+      <option id="Friday" class="w3-sand" value="Friday">Friday</option>
+      <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
+      <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
+  </div>
+</div>
 
     <div id="output"></div>    
 <script>
@@ -120,6 +147,14 @@
   removeItem(event.target.id);
 });
 
+function dropDown() {
+  var x = document.getElementById("lstDays");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
 
 function checkArray() {
   
