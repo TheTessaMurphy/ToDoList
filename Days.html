@@ -133,9 +133,10 @@ function checkArray() {
       arrTemp[i].day = "ongoing";
   } 
 
-var arrToDoList = arrTemp.concat(days);
-var a = JSON.stringify(arrToDoList);
+var arrToDo = arrTemp.concat(days);
+var a = JSON.stringify(arrToDo);
 document.getElementById("output").innerHTML = a; 
+localStorage.setItem("arrToDo", JSON.stringify(arrToDo));  
 }
 
 function getTask(value){

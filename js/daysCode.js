@@ -1,11 +1,9 @@
-
 function openModalTemp(value){
     //const value = event.target.id;
     var dayText = value;
     
     alert(dayText)
   }
-
 
 function openModal(value) {
     
@@ -30,7 +28,6 @@ function openModal(value) {
     
 }
 
-
 //***** BELOW HERE, WORKING ON ARRAY *****
 
 
@@ -52,8 +49,6 @@ function removeItem(value) {
     
     elem.removeChild(item);       
 }
-
-
 
 function getModalInput() {
     //var input = document.getElementById("enterTask");
