@@ -102,7 +102,7 @@ function makeBold(elt){
        
         var target = elt;
         const value = elt.htmlFor;
-        
+                
         var arr = JSON.parse(localStorage.getItem("transformed"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
