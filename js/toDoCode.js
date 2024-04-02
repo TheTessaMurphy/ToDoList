@@ -8,9 +8,7 @@ function Main() {
     
     //Call loadList to create list on page
     loadList(transformed, tasks, checks);   
-    
 }
-
 
 function loadList(transformed) {
 
@@ -38,42 +36,38 @@ function loadList(transformed) {
     }
 
 function createCheckbox(obj) {
-
-    //Create a linebreak so that checkboxes create list rather than side by side
-    var linebreak = document.createElement("br"); 
-    
     //read each task from loadList and create the checkbox and label
-    //then append to boxChecked field so it shows up on the screen
+    //then append to fieldset so it shows up on the screen
     //and finally, clear input box
-        var checkboxes = document.createElement("INPUT");
+
+    var linebreak = document.createElement("br"); //creates linebreak so checkboxes appear as a list
+    var checkboxes = document.createElement("INPUT");
+    var label = document.createElement("LABEL");
         
-        checkboxes.setAttribute("type", "checkbox");
-        checkboxes.setAttribute("class", "w3-check");
-        checkboxes.addEventListener("click", boxChecked);
-        
-        var label = document.createElement("LABEL");
-        checkboxes.value=obj["todo"];
-        checkboxes.checked=JSON.parse(obj["checked"]);
-        //label.addEventListener("click", makeBold); 
-        label.htmlFor = obj["todo"];
-        
-        myFieldset.appendChild(checkboxes);
-        myFieldset.appendChild(label);
-        label.appendChild(document.createTextNode(" "));
-        label.appendChild(document.createTextNode(obj["todo"]));
-        myFieldset.appendChild(linebreak);
+    checkboxes.setAttribute("type", "checkbox");
+    checkboxes.setAttribute("class", "w3-check");
+    checkboxes.value=obj["todo"];
+    checkboxes.checked=JSON.parse(obj["checked"]);
+    
+    label.htmlFor = obj["todo"];
+    
+    myFieldset.appendChild(checkboxes);
+    myFieldset.appendChild(label);
+    label.appendChild(document.createTextNode(" "));
+    label.appendChild(document.createTextNode(obj["todo"]));
+    myFieldset.appendChild(linebreak);
         
         document.getElementById('myTask').value = "";   //Clear the input box
     }   
 
-function boxChecked(e){
+function boxChecked(elt){
     // Called when a checkbox is clicked
     // if the checkbox is checked, a class is added to its label
     // that turns the text gray. If checkbox is unchecked, the class is removed
     // the value in the object is changed and the array saved to local storage      
         
-        var target = event.target;
-        const value = event.target.value;
+        var target = elt;
+        const value = elt.value;
         var arr = JSON.parse(localStorage.getItem("transformed"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
@@ -127,13 +121,14 @@ function makeBold(elt){
     }
 
 function getInput() {
-
     // Get the input element by its ID
     //and pass it to createArray 
-        var inputField = document.getElementById("myTask"); 
-        var value = inputField.value; 
         
-        createArray(value);
+    var inputField = document.getElementById("myTask"); 
+    var value = inputField.value; 
+        
+    createArray(value);
+    
     }
                     
 function createArray(val) {
