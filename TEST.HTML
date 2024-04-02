@@ -3,64 +3,49 @@
     <head>
         <title>TEST</title>
         <link rel="icon" type="image/x-icon" href="favicon.png">
+
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/w3ColorThemes.css">
         <link rel="stylesheet" href="css\toDoStyles.css">
         <link rel="stylesheet" href="css\custom.css">
-       
         
-        <script type="text/javascript" src="js/toDoCode.js"></script>
+        <script type="text/javascript" src="js/Test.js"></script>
     </head>
     
     <body onload="Main()">
-    <div class="w3-display-container w3-row-padding ">
-        
-    <div id="bigContainer" class="w3-quarter w3-hide-small"><image src="C:\Users\tessa\OneDrive\Pictures\train track resize.jpg"></image></div>
     
-    <div class="w3-display-container w3-half w3-padding-10 w3-card-4 w3-theme-l2">
+    <div class="w3-display-container w3-row-padding ">
+        <div id="bigContainer" class="w3-quarter w3-hide-small"><image src="C:\Users\tessa\OneDrive\Pictures\train track resize.jpg"></image></div>
         
-           <div class="w3-display-container w3-padding-16">
-            <button id="days" class="btnCircle w3-btn w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple w3-right " >D</button>
-            <button id="Clear" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-ripple w3-right w3-circle" onclick="clearList()"><i class="fa fa-trash"></i></button>
-            <button id="myButton" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-right w3-circle" onclick="getInput()" >&plus;</button>
-        </div>
-        <h1 class="w3-padding-32 w3-center w3-margin-top w3-margin-bottom">My ToDo List</h1>
-        
-        <form class="w3-container" id="myList"  >
-            <input id="myTask" class="w3-input " type="text">
+        <div class="w3-display-container w3-half w3-padding-10 w3-card-4 w3-theme-l2">
+            <div class="w3-display-container w3-padding-16">
+                <button id="days" class="btnCircle w3-btn w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple w3-right " >D</button>
+                <button id="Clear" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-ripple w3-right w3-circle" onclick="clearList()"><i class="fa fa-trash"></i></button>
+                <button id="myButton" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-right w3-circle" onclick="getInput()" >&plus;</button>
+            </div>
             
-            <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
-            <p></p>
-         </form>  
+            <h1 class="w3-padding-32 w3-center w3-margin-top w3-margin-bottom">My ToDo List</h1>
+            
+            <form class="w3-container" id="myList"  >
+                <input id="myTask" class="w3-input " type="text">
+                
+                <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
+                <p></p>
+            </form>  
         </div>
-    <div class="w3-quarter w3-hide-small"></div>
+    
+        <div class="w3-quarter w3-hide-small"></div>
         
     </div>
-        <!--<div class="w3-container w3-theme-l2 w3-card-4">
-        <h1 class="w3-center">My ToDo List</h1>
-        <form class="w3-container id="myList"  >
-         
-            <input type="text" id="myTask" style="width:75%"> 
-            <button id="myButton" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2" onclick="getInput()" >&plus;</button>
-            <button id="Clear" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" onclick="clearList()"><i class="fa fa-trash"></i></button>
-            <button id="days" class="w3-btn w3-theme-d4 w3-hover-w3-theme-d2 w3-ripple" ><i class="fa fa-trash"></i></button>
         
-            <fieldset id="myFieldset" onclick="boxChecked()" ></fieldset>
-            <p></p>
-         </form>  
-    </div> --> 
-    
-            
-       
-     
     </body>
 </html>
 
 <script>
 
 
-//******  EXECUTE A FUNCTION WHEN THE USR PRESSES A KEY ON THE KEYBOARD GOES HERE************
+//*** EVENT LISTENERS ***
 // Execute a function when the user presses a key on the keyboard
 myTask.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -68,30 +53,14 @@ myTask.addEventListener("keypress", function(event) {
         document.getElementById("myButton").click();
     }
 });
+//Adds gray class to list item when checked. 
+document.getElementById("myFieldset").addEventListener("click", function() {
+    boxChecked(event.target);
+});
 
+//Adds bold class to label when clicked
 document.getElementById("myFieldset").addEventListener("click", function() {
     makeBold(event.target);
 });
-
-
-
-//***********MAIN GOES HERE*************
-//****** LOAD LIST GOES HERE*************
-
-
-//*********** CREATE CHECKBOX GOES HERE******************
-
- 
-//****************BOXCHECKED GOES HERE*****************
-
-//***************MAKEBOLD GOES HERE **************
-
-
-//***********GET INPUT GOES HERE***************
-
-//***********CREATEARRAY GOES HERE***************
-
-//***********CLEARLIST GOES HERE***************
-
 
 </script>
