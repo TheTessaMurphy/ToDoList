@@ -84,7 +84,7 @@
     </div>
   </div>
 
-  
+  <div id="output"></div>
 
     </body>
 </html>
@@ -117,4 +117,6 @@ document.getElementById("lstDays").addEventListener("click", function() {
   document.getElementById("modalList").addEventListener("click", function() {
   removeItem(event.target.id);
 });
+
+document.getElementById("enterTask").addEventListener("change", getModalInput);
 </script>

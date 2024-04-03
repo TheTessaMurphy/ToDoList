@@ -2,37 +2,65 @@ function Main() {
     //Get arrays from local storage
     document.getElementById("myTask").focus();
 
-    var transformed = JSON.parse(localStorage.getItem("transformed"));
+    var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
     var tasks = JSON.parse(localStorage.getItem("tasks"));
     var checks = JSON.parse(localStorage.getItem("checks"));    
     
     //Call loadList to create list on page
-    loadList(transformed, tasks, checks);   
+    loadList(arrToDo, tasks, checks);   
 }
 
-function loadList(transformed) {
+function loadList(arrToDo) {
 
+    var tempArray =[];
+    var nd = new Date().toLocaleDateString('en-us', { weekday:"long"});
     //Get array and create a loop to call createCheckbox to create each checkbox
     //Then call createCheckbox to check or uncheck boxes.
-        if (transformed.length != 0){
-            transformed.forEach(createCheckbox);
+        if (arrToDo.length != 0){
+            
+            for (var i = 0; i < arrToDo.length; i++) {
+                var obj = arrToDo[i];
+                if (obj['day'] == "Everyday") {
+                    tempArray.push(obj);
+                    }    
+            } 
+            
+            for (var i = 0; i < arrToDo.length; i++) {
+                var obj = arrToDo[i];
+                if (obj['day'] == nd  ) {
+                    tempArray.push(obj);
+                }    
+            }  
+            
+            for (var i = 0; i < arrToDo.length; i++) {
+                var obj = arrToDo[i];
+                if (obj['day'] == "ongoing") {
+                    tempArray.push(obj);
+                }
+            }
+            tempArray.forEach(createCheckbox);
         }
     
     //runs through when page loads or reloads and adds checks and bold.  
     var checkbox = document.querySelectorAll("input[type='checkbox']");
     var labels = document.getElementsByTagName('LABEL');
-    
-        for (var i = 0; i < transformed.length; i++){
-            var obj = transformed[i];
+    var nd = new Date().toLocaleDateString('en-us', { weekday:"long"});
+
+        for (var i = 0; i < tempArray.length; i++){
+            
+            var obj = tempArray[i];
+            
             if (checkbox[i].checked == true ){
                 labels[i].classList.add("gray");
-            } 
-    
+            }
+        
             if (obj["bold"]=="true"){
+                
                 labels[i].classList.add("bold");
                 
             }
-        }    
+
+        } 
     }
 
 function createCheckbox(obj) {
@@ -58,6 +86,7 @@ function createCheckbox(obj) {
     myFieldset.appendChild(linebreak);
         
         document.getElementById('myTask').value = "";   //Clear the input box
+        
     }   
 
 function boxChecked(elt){
@@ -68,7 +97,7 @@ function boxChecked(elt){
         
         var target = elt;
         const value = elt.value;
-        var arr = JSON.parse(localStorage.getItem("transformed"));
+        var arr = JSON.parse(localStorage.getItem("arrToDo"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
         var labels = document.getElementsByTagName('LABEL');
@@ -80,11 +109,11 @@ function boxChecked(elt){
                     labels[i].classList.add("gray");
                     obj["checked"] = "true";
                     arr.splice(indx, 1, obj);
-                    localStorage.setItem("transformed", JSON.stringify(arr));   
+                    localStorage.setItem("arrToDo", JSON.stringify(arr));   
                 } else { labels[i].classList.remove("gray");
                 obj["checked"] = "false"
                 arr.splice(indx, 1, obj);
-                localStorage.setItem("transformed", JSON.stringify(arr));  
+                localStorage.setItem("arrToDo", JSON.stringify(arr));  
                 }  
             }    
         } 
@@ -97,7 +126,7 @@ function makeBold(elt){
         var target = elt;
         const value = elt.htmlFor;
                 
-        var arr = JSON.parse(localStorage.getItem("transformed"));
+        var arr = JSON.parse(localStorage.getItem("arrToDo"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
         
@@ -109,12 +138,14 @@ function makeBold(elt){
                     labels[i].classList.remove("bold");
                     obj["bold"] = "false"
                     arr.splice(indx, 1, obj); 
-                    localStorage.setItem("transformed", JSON.stringify(arr));   
+                    
+                    localStorage.setItem("arrToDo", JSON.stringify(arr));   
                 } else { 
                     labels[i].classList.add("bold");
                     obj["bold"] = "true"
-                    arr.splice(indx, 1, obj); 
-                    localStorage.setItem("transformed", JSON.stringify(arr));  
+                    arr.splice(indx, 1, obj);
+                    
+                    localStorage.setItem("arrToDo", JSON.stringify(arr));  
                 }  
             }    
         } 
@@ -139,7 +170,7 @@ function createArray(val) {
     //push into Array and save to storage
     //If the value is an empty string, alert user  
     
-    var transformed = JSON.parse(localStorage.getItem("transformed"));
+    var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
             
         var nd = new Date().toLocaleDateString('en-us', { weekday:"long"});
         var tm = new Date().toLocaleTimeString(); // 11:18:48 AM;
@@ -155,8 +186,8 @@ function createArray(val) {
                 "date" : dt
             };
     
-            transformed.push(obj);  
-            localStorage.setItem("transformed", JSON.stringify(transformed));  
+            arrToDo.push(obj);  
+            localStorage.setItem("arrToDo", JSON.stringify(arrToDo));  
             createCheckbox(obj);
         } else {
             alert("Enter a Task");
@@ -168,16 +199,16 @@ function clearList() {
     //If the checkbox is checked, deletes that item
     //from the array then reloads the page so the updated list appears.
     
-        var transformed = JSON.parse(localStorage.getItem("transformed"));
+        var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
         var check = document.querySelectorAll("input[type='checkbox']");
         for (var i=check.length-1; i >=0; i--){
             if(check[i].checked){
                 
-                transformed.splice(i, 1);
+                arrToDo.splice(i, 1);
             }
         } 
         
-        localStorage.setItem("transformed", JSON.stringify(transformed));
+        localStorage.setItem("arrToDo", JSON.stringify(arrToDo));
         location.reload(true);
     }
 
