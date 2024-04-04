@@ -1,3 +1,4 @@
+
 function Main() {
     //Get arrays from local storage
     document.getElementById("myTask").focus();
@@ -114,7 +115,7 @@ function boxChecked(elt){
         
         var target = elt;
         const value = elt.value;
-        var arr = JSON.parse(localStorage.getItem("arrToDo"));
+        var arr = JSON.parse(localStorage.getItem("transformed"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
         var labels = document.getElementsByTagName('LABEL');
@@ -126,11 +127,11 @@ function boxChecked(elt){
                     labels[i].classList.add("gray");
                     obj["checked"] = "true";
                     arr.splice(indx, 1, obj);
-                    localStorage.setItem("arrToDo", JSON.stringify(arr));   
+                    localStorage.setItem("transformed", JSON.stringify(arr));   
                 } else { labels[i].classList.remove("gray");
                 obj["checked"] = "false"
                 arr.splice(indx, 1, obj);
-                localStorage.setItem("arrToDo", JSON.stringify(arr));  
+                localStorage.setItem("transformed", JSON.stringify(arr));  
                 }  
             }    
         } 
@@ -143,7 +144,7 @@ function makeBold(elt){
         var target = elt;
         const value = elt.htmlFor;
                 
-        var arr = JSON.parse(localStorage.getItem("arrToDo"));
+        var arr = JSON.parse(localStorage.getItem("transformed"));
         var obj = arr.find(obj => obj["todo"] === value);
         var indx = arr.indexOf(obj);
         
@@ -156,13 +157,13 @@ function makeBold(elt){
                     obj["bold"] = "false"
                     arr.splice(indx, 1, obj); 
                     
-                    localStorage.setItem("arrToDo", JSON.stringify(arr));   
+                    localStorage.setItem("transformed", JSON.stringify(arr));   
                 } else { 
                     labels[i].classList.add("bold");
                     obj["bold"] = "true"
                     arr.splice(indx, 1, obj);
                     
-                    localStorage.setItem("arrToDo", JSON.stringify(arr));  
+                    localStorage.setItem("transformed", JSON.stringify(arr));  
                 }  
             }    
         } 
@@ -217,18 +218,29 @@ function clearList() {
         var transformed = JSON.parse(localStorage.getItem("transformed"));
         var check = document.querySelectorAll("input[type='checkbox']");
         var label = document.querySelectorAll("LABEL");
+        var linebreak = document.querySelectorAll("br");
+
         for (var i=check.length-1; i >=0; i--){
             if(check[i].checked){
                 var str = check[i].value;
                 var idx = transformed.findIndex(i => i["todo"] === str);
-                alert(JSON.stringify(transformed[idx]))
-                transformed.splice(idx, 1);
-                myFieldset.removeChild(check[i]);
-                myFieldset.removeChild(label[i]);
+                if(idx >= 0){
+                    transformed.splice(idx, 1);
+                    localStorage.setItem("transformed", JSON.stringify(transformed));
+                    
+                    myFieldset.removeChild(check[i]);
+                    myFieldset.removeChild(label[i]);
+                    myFieldset.removeChild(linebreak[i]);
+                } else {
+                    myFieldset.removeChild(check[i]);
+                    myFieldset.removeChild(label[i]);
+                    myFieldset.removeChild(linebreak[i]);
+                }
+                
             }
         } 
         
-        localStorage.setItem("transformed", JSON.stringify(transformed));
+        
         //location.reload(true);
     }
 

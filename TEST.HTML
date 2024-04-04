@@ -22,25 +22,21 @@
         <div id="bigContainer" class="w3-quarter w3-hide-small"><image src="C:\Users\tessa\OneDrive\Pictures\train track resize.jpg"></image></div>
         
         <div class="w3-display-container w3-half w3-padding-10 w3-card-4 w3-theme-l2">
-            <div class="w3-display-container w3-padding-16">
-                
-                <button id="days" class="btnCircle w3-btn w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple w3-right " >D</button>
-                
-                
-                <div class="w3-dropdown-click w3-right" style="background: rgba(255,255,255,0)">
-                    <button onclick="dropDown()" class="btnCircle w3-btn w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple w3-right"><span style="font-weight: bold">&#127895</span></button>
-                    <div id="lstDays"  class="w3-dropdown-content w3-bar-block w3-border">
-                      <option class="w3-sand  value="" disabled selected>Select a day</option> 
-                      <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
-                      <option id="Monday"class="w3-sand" value="Monday">Monday</option>
-                      <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
-                      <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
-                      <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
-                      <option id="Friday" class="w3-sand" value="Friday">Friday</option>
-                      <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
-                      <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
-                  </div>
-            </div>
+            <div class="w3-display-container w3-padding-16 ">
+              <div class="w3-dropdown-click w3-right" style="background-color: rgba(255, 0, 0, 0);">
+                <button onclick="dropDown()" class="w3-btn btnCircle w3-circle w3-theme-d3 w3-hover-text-light-blue w3-ripple" >D</button>
+                <div id="lstDays" class="w3-dropdown-content w3-bar-block w3-border" style="margin-left: -110px;">
+                  <option class="w3-sand  value="" disabled selected>Select a day</option> 
+                    <option id="Everyday"class="w3-sand" value="Everyday">Everyday</option>
+                    <option id="Monday"class="w3-sand" value="Monday">Monday</option>
+                    <option id="Tuesday"class="w3-sand" value="Tuesday">Tuesday</option>
+                    <option id="Wednesday" class="w3-sand" value="Wednesday">Wednesday</option>
+                    <option id="Thursday" class="w3-sand" value="Thursday">Thursday</option>
+                    <option id="Friday" class="w3-sand" value="Friday">Friday</option>
+                    <option id="Saturday" class="w3-sand" value="Saturday">Saturday</option>
+                    <option id="Sunday" class="w3-sand" value="Sunday">Sunday</option>
+                </div>
+              </div>
             <button id="Clear" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-ripple w3-right w3-circle" onclick="clearList()"><i class="fa fa-trash"></i></button>
             <button id="myButton" class="btnCircle w3-btn w3-theme-d3 w3-hover-text-cyan w3-right w3-circle" onclick="getInput()" >&plus;</button>
             
@@ -119,4 +115,13 @@ document.getElementById("lstDays").addEventListener("click", function() {
 });
 
 document.getElementById("enterTask").addEventListener("change", getModalInput);
+
+
+var now = new Date();
+
+var reloadTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0) - now;
+if (reloadTime < 0) {
+     reloadTime += 86400000; // it's after midnight, try midnight tomorrow.
+}
+setTimeout(function(){location.reload(true);}, reloadTime);
 </script>
