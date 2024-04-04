@@ -16,13 +16,13 @@ function openModal(value) {
     document.getElementById("enterTask").focus();
     //event.target.value =  "";   
     
-    var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
+    var days = JSON.parse(localStorage.getItem("days"));
 
    
     document.getElementById("modalList").innerHTML = "";
     
-    for (var i = 0; i < arrToDo.length; i++) {
-        var obj = arrToDo[i];
+    for (var i = 0; i < days.length; i++) {
+        var obj = days[i];
         if (obj['day'] == dayText) {
             var value = obj['todo'];
             addItem(value);
@@ -43,12 +43,12 @@ function removeItem(value) {
     var str = item.innerText.trimStart();
     //var str = string.trimStart();
     
-    var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
-    var idx = arrToDo.findIndex(i => i["todo"] === str);
-    //var obj = arrToDo.find(obj => obj["todo"] === str);
+    var days = JSON.parse(localStorage.getItem("days"));
+    var idx = days.findIndex(i => i["todo"] === str);
+    //var obj = days.find(obj => obj["todo"] === str);
     
-    arrToDo.splice(idx, 1);
-    localStorage.setItem("arrToDo", JSON.stringify(arrToDo));  
+    days.splice(idx, 1);
+    localStorage.setItem("days", JSON.stringify(days));  
     
     elem.removeChild(item);       
 }
@@ -92,6 +92,7 @@ function createDaysArray(value) {
 //push into Array and save to storage
 //If the value is an empty string, alert user  
 
+var days = JSON.parse(localStorage.getItem("days"));
 var arrToDo = JSON.parse(localStorage.getItem("arrToDo"));
 
 var nd = document.getElementById("dayText").innerHTML
@@ -110,8 +111,8 @@ var dt = new Date().toLocaleDateString();
             
         };
         
-        arrToDo.push(obj);  
-        localStorage.setItem("arrToDo", JSON.stringify(arrToDo));  
+        days.push(obj);  
+        localStorage.setItem("days", JSON.stringify(days));  
         
         
         

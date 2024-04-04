@@ -157,8 +157,12 @@ function dropDown() {
 }
 
 function checkArray() {
+ 
   
-  var arr = JSON.parse(localStorage.getItem("transformed"));
+ var a = JSON.stringify(days);
+document.getElementById("output").innerHTML = a; 
+
+ /* var arr = JSON.parse(localStorage.getItem("transformed"));
   var days = JSON.parse(localStorage.getItem("days")); 
   var arrTemp = JSON.parse(localStorage.getItem("transformed"));
 
@@ -168,10 +172,10 @@ function checkArray() {
       arrTemp[i].day = "ongoing";
   } 
 
-var arrToDo = arrTemp.concat(days);
-var a = JSON.stringify(arrToDo);
-document.getElementById("output").innerHTML = a; 
-//localStorage.setItem("arrToDo", JSON.stringify(arrToDo));  
+//var arrToDo = arrTemp.concat(days);
+//var a = JSON.stringify(arrToDo);
+//document.getElementById("output").innerHTML = a; 
+//localStorage.setItem("arrToDo", JSON.stringify(arrToDo)); */ 
 }
 
 function getTask(value){
