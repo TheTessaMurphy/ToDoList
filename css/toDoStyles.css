@@ -1,5 +1,12 @@
+@font-face {
+    
+    font-family: MouldyCheeseRegular;
+    src: url(MouldyCheeseRegular-WyMWG.ttf);
+  }
+
 h1 {
-    font-family: "Broadway";
+    font-family: MouldyCheeseRegular, serif;
+   
 }
 
 .gray {
@@ -10,7 +17,7 @@ h1 {
     font-weight: bold;
 }
 
-#myFieldset {
+#fldHoldList {
     border: 0;
 }
 
@@ -33,5 +40,9 @@ textarea:focus, input:focus{
 option {
     cursor: pointer;
 }
+
+/*option:hover {
+    color: blueviolet;
+  }*/
   
  

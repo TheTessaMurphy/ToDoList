@@ -6,7 +6,7 @@ function Main() {
     var arrTrans = JSON.parse(localStorage.getItem("transformed"));
     
     //Set focus and call loadList to create list on page
-    document.getElementById("myTask").focus();
+    document.getElementById("inpTask").focus();
     loadList(arrDays, arrTrans);   
 }
 
@@ -68,13 +68,13 @@ function createCheckbox(obj) {
     
     label.htmlFor = obj["todo"];
     
-    myFieldset.appendChild(checkboxes);
-    myFieldset.appendChild(label);
+    fldHoldList.appendChild(checkboxes);
+    fldHoldList.appendChild(label);
     label.appendChild(document.createTextNode(" "));
     label.appendChild(document.createTextNode(obj["todo"]));
-    myFieldset.appendChild(linebreak);
+    fldHoldList.appendChild(linebreak);
         
-    document.getElementById('myTask').value = "";   //Clear the input box
+    document.getElementById('inpTask').value = "";   //Clear the input box
 }   
 
 function boxChecked(elt){
@@ -142,7 +142,7 @@ function getInput() {
     // Get the input element by its ID
     //and pass it to createArray 
     
-    var inputField = document.getElementById("myTask"); 
+    var inputField = document.getElementById("inpTask"); 
     var value = inputField.value; 
     createArray(value);
 }
@@ -195,13 +195,13 @@ function clearList() {
                 transformed.splice(idx, 1);
                 localStorage.setItem("transformed", JSON.stringify(transformed));
                 
-                myFieldset.removeChild(check[i]);
-                myFieldset.removeChild(label[i]);
-                myFieldset.removeChild(linebreak[i]);
+                fldHoldList.removeChild(check[i]);
+                fldHoldList.removeChild(label[i]);
+                fldHoldList.removeChild(linebreak[i]);
             } else {
-                myFieldset.removeChild(check[i]);
-                myFieldset.removeChild(label[i]);
-                myFieldset.removeChild(linebreak[i]);
+                fldHoldList.removeChild(check[i]);
+                fldHoldList.removeChild(label[i]);
+                fldHoldList.removeChild(linebreak[i]);
             }
             
         }
