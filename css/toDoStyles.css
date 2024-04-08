@@ -1,13 +1,13 @@
-html{
-    height:100%;
-}
-
+@font-face {
+    
+    font-family: MouldyCheeseRegular;
+    src: url(MouldyCheeseRegular-WyMWG.ttf);
+  }
 
 h1 {
-    font-family: "Broadway";
-    
+    font-family: MouldyCheeseRegular, serif;
+   
 }
-
 
 .gray {
     color: gray
@@ -17,43 +17,32 @@ h1 {
     font-weight: bold;
 }
 
-#myFieldset {
+#fldHoldList {
     border: 0;
-    
 }
-
-/*#myListDiv {
-    width: 40%;
-    background-color: lightblue;  
-    margin: auto; 
-    padding: 1%; 
-    height: 100%;
-    border:1px solid black;
-    
-}*/
-
-
-
-/*.chkbox {
-    height: 20px;
-    width: 20px;
-    vertical-align: middle;
-}
- 
-label {
-    vertical-align: middle;
-    display: inline-block;
-    padding-top: 4px;
-    height: 20px;
-}*/
-    
-
 
 input[type='text']:focus {
     outline: none;
-    
-  }
+}
 
- 
+li {
+    cursor: pointer;
+}
+  
+textarea:focus, input:focus{
+    outline: none;
+}
+  
+.btnCircle{
+    margin: 2px;
+}
+  
+option {
+    cursor: pointer;
+}
+
+/*option:hover {
+    color: blueviolet;
+  }*/
   
  
